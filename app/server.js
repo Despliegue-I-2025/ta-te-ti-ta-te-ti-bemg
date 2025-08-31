@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
+import algoritmo from './algoritmo.js';
 const app = express();
 const PORT = 3000;
 
 // GET /move?board=[0,1,0,2,0,0,0,0,0]
 app.get('/move', (req, res) => {
     let boardParam = req.query.board;
-    let board;
+    let board; 
     try {
         board = JSON.parse(boardParam);
     } catch (e) {
@@ -23,11 +24,19 @@ app.get('/move', (req, res) => {
         return res.status(400).json({ error: 'No hay movimientos disponibles.' });
     }
     
+
+
     // Elegir una posición vacía al azar
-    const move = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
-    res.json({ movimiento: move });
+    //const move = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+    //res.json({ movimiento: move });
 });
 
+let board = [0,1,0,2,0,0,0,0,0]; // Valor por defecto
+    console.log(board);
+    const emptyPositions = board
+        .map((v, i) => v === 0 ? i : null)
+        .filter(i => i !== null);
+    algoritmo(board, emptyPositions);
 app.listen(PORT, () => {
     console.log(`Servidor de tateti escuchando en el puerto ${PORT}`);
 });
