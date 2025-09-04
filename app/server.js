@@ -1,13 +1,12 @@
 import express from 'express';
 import algoritmo from './algoritmo.js';
-
 const app = express();
 const PORT = 3000;
 
 // GET /move?board=[0,1,0,2,0,0,0,0,0]
 app.get('/move', (req, res) => {
     let boardParam = req.query.board;
-    let board;
+    let board; 
     try {
         board = JSON.parse(boardParam);
     } catch (e) {
@@ -29,6 +28,7 @@ app.get('/move', (req, res) => {
     const move = algoritmo(board, emptyPositions);
     res.json({ movimiento: move });
 });
+
 
 app.listen(PORT, () => {
     console.log(`Servidor de tateti escuchando en el puerto ${PORT}`);
