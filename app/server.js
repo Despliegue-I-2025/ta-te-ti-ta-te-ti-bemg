@@ -1,4 +1,6 @@
-const express = require('express');
+import express from 'express';
+import algoritmo from './algoritmo.js';
+
 const app = express();
 const PORT = 3000;
 
@@ -23,8 +25,8 @@ app.get('/move', (req, res) => {
         return res.status(400).json({ error: 'No hay movimientos disponibles.' });
     }
     
-    // Elegir una posición vacía al azar
-    const move = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+
+    const move = algoritmo(board, emptyPositions);
     res.json({ movimiento: move });
 });
 
